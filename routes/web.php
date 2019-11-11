@@ -26,4 +26,4 @@ Route::get('/nameinfo', function () {
     ]);
 });
 
-Route::get('/posts/{post}', 'PostController@show');
+Route::get('/posts/{post}', 'PostsController@show');
