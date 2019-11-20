@@ -15,9 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/chocolate', function () {
-    return view('chocolate');
-});
+//Route::get('/chocolate', function () {
+//    return view('chocolate');
+//});
+
+Route::get('/chocolate', 'ChocolateController@show');
 
 Route::get('/nameinfo', function () {
     $name = request('name');
