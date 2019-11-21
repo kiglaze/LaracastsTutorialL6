@@ -35,5 +35,10 @@ Route::get('contact', function () {
 });
 
 Route::get('about', function () {
-    return view('about');
+    $articles = App\Article::latest('created_at')->take(2)->get();
+    return view('about', [
+        'articles' => $articles
+    ]);
 });
+
+Route::get('articles/{article}', 'ArticlesController@show');
