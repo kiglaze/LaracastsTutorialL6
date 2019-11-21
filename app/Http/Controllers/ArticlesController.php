@@ -7,7 +7,17 @@ use Illuminate\Http\Request;
 
 class ArticlesController extends Controller
 {
-    // Shows article with a given id.
+    /*
+     * The 7 Restful Controller Actions:
+     * index, show, create, store, edit, update, destroy
+     */
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Show a single resource.
+     * Shows article with a given id.
+     */
     public function show($id) {
         $article = $this->getArticleById($id);
         return view('articles.show', [
@@ -20,10 +30,14 @@ class ArticlesController extends Controller
         return $article;
     }
 
-    // Shows all articles
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Render a list of a resource.
+     * Shows all articles.
+     */
     public function index() {
         $articles = Article::latest()->get();
-        return view('articles', [
+        return view('articles.index', [
             'articles' => $articles
         ]);
     }
