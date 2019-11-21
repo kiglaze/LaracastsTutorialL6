@@ -19,6 +19,7 @@ Released   : 20140225
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
     <link href="css/default.css" rel="stylesheet" />
     <link href="css/fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 
 </head>
 <body>
@@ -43,5 +44,6 @@ Released   : 20140225
     <div id="copyright" class="container">
         <p>&copy; Untitled. All rights reserved. | Photos by <a href="http://fotogrph.com/">Fotogrph</a> | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
     </div>
+    <script src="/js/app.js"></script>
 </body>
 </html>
