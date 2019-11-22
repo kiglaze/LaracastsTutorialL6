@@ -41,6 +41,17 @@ Route::get('about', function () {
     ]);
 });
 
-Route::get('articles/{article}', 'ArticlesController@show');
 
 Route::get('articles', 'ArticlesController@index');
+Route::post('articles', 'ArticlesController@store');
+Route::get('articles/create', 'ArticlesController@create');
+Route::get('articles/{article}', 'ArticlesController@show');
+Route::post('articles/{article}', 'ArticlesController@update');
+
+// GET, POST, PUT, DELETE (use these request verbs)
+// GET /articles
+// GET /articles/:id
+// GET /articles/:id/edit
+// POST //articles
+// PUT /articles/:id
+// DELETE /articles/:id

@@ -21,6 +21,7 @@ Released   : 20140225
     <link href="/css/fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 
+    @yield('head')
 </head>
 <body>
     <div id="header-wrapper">
