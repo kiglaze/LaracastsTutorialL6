@@ -65,7 +65,7 @@ class ArticlesController extends Controller
         $article->excerpt = \request('excerpt');
         $article->body = \request('body');
         $article->save();
-        return redirect('/articles');
+        return redirect(route('articles.index'));
     }
 
     /**
@@ -93,7 +93,7 @@ class ArticlesController extends Controller
         $article->excerpt = \request('excerpt');
         $article->body = \request('body');
         $article->save();
-        return redirect('/articles/' . $id);
+        return redirect(route('articles.show', $id));
     }
 
     /**
