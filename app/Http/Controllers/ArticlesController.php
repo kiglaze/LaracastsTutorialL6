@@ -25,6 +25,7 @@ class ArticlesController extends Controller
         ]);
     }
 
+
     protected function getArticleById($id) {
         // findOrFail($id) error handles, as opposed to just find($id).
         $article = Article::findOrFail($id);
@@ -54,17 +55,21 @@ class ArticlesController extends Controller
      * Persist the new resource.
      */
     public function store() {
-        \request()->validate([
-            'title' => ['required', 'min:3', 'max:255'],
-            'excerpt' => ['required'],
-            'body' => ['required']
-        ]);
+        $validatedAttrs = $this->validateForm();
 
-        $article = new Article();
-        $article->title = \request('title');
-        $article->excerpt = \request('excerpt');
-        $article->body = \request('body');
-        $article->save();
+//        $article = new Article();
+//        $article->title = \request('title');
+//        $article->excerpt = \request('excerpt');
+//        $article->body = \request('body');
+//        $article->save();
+
+        /**
+         * Will create article, assign attribute values, and save it in one go.
+         * However, will need to set protected $fillable field for Article model class.
+         *  This allows us to add "mass assignment".
+         */
+        Article::create($validatedAttrs);
+
         return redirect(route('articles.index'));
     }
 
@@ -82,18 +87,15 @@ class ArticlesController extends Controller
      * Persist the edited resource.
      */
     public function update(Article $article) {
-        \request()->validate([
-            'title' => ['required', 'min:3', 'max:255'],
-            'excerpt' => ['required'],
-            'body' => ['required']
-        ]);
+        $validatedAttrs = $this->validateForm();
 
 //        $article = $this->getArticleById($id);
         $id = $article->id;
-        $article->title = \request('title');
-        $article->excerpt = \request('excerpt');
-        $article->body = \request('body');
-        $article->save();
+//        $article->title = \request('title');
+//        $article->excerpt = \request('excerpt');
+//        $article->body = \request('body');
+//        $article->save();
+        $article->update($validatedAttrs);
         return redirect(route('articles.show', $id));
     }
 
@@ -102,5 +104,18 @@ class ArticlesController extends Controller
      */
     public function destroy() {
 
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function validateForm()
+    {
+        $validatedAttrs = \request()->validate([
+            'title' => ['required', 'min:3', 'max:255'],
+            'excerpt' => ['required'],
+            'body' => ['required']
+        ]);
+        return $validatedAttrs;
     }
 }
