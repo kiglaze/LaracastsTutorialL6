@@ -26,7 +26,8 @@ class ArticlesController extends Controller
     }
 
     protected function getArticleById($id) {
-        $article = Article::find($id);
+        // findOrFail($id) error handles, as opposed to just find($id).
+        $article = Article::findOrFail($id);
         return $article;
     }
 
