@@ -64,15 +64,23 @@ class ArticlesController extends Controller
     /**
      * Show a view to edit an existing resource.
      */
-    public function edit() {
-
+    public function edit($id) {
+        $article = $this->getArticleById($id);
+        return view('articles.edit', [
+            'article' => $article
+        ]);
     }
 
     /**
      * Persist the edited resource.
      */
-    public function update() {
-
+    public function update($id) {
+        $article = $this->getArticleById($id);
+        $article->title = \request('title');
+        $article->excerpt = \request('excerpt');
+        $article->body = \request('body');
+        $article->save();
+        return redirect('/articles/' . $id);
     }
 
     /**
