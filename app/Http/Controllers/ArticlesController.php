@@ -18,8 +18,8 @@ class ArticlesController extends Controller
      * Show a single resource.
      * Shows article with a given id.
      */
-    public function show($id) {
-        $article = $this->getArticleById($id);
+    public function show(Article $article) {
+//        $article = $this->getArticleById($id);
         return view('articles.show', [
             'article' => $article
         ]);
@@ -71,8 +71,8 @@ class ArticlesController extends Controller
     /**
      * Show a view to edit an existing resource.
      */
-    public function edit($id) {
-        $article = $this->getArticleById($id);
+    public function edit(Article $article) {
+//        $article = $this->getArticleById($id);
         return view('articles.edit', [
             'article' => $article
         ]);
@@ -81,14 +81,15 @@ class ArticlesController extends Controller
     /**
      * Persist the edited resource.
      */
-    public function update($id) {
+    public function update(Article $article) {
         \request()->validate([
             'title' => ['required', 'min:3', 'max:255'],
             'excerpt' => ['required'],
             'body' => ['required']
         ]);
 
-        $article = $this->getArticleById($id);
+//        $article = $this->getArticleById($id);
+        $id = $article->id;
         $article->title = \request('title');
         $article->excerpt = \request('excerpt');
         $article->body = \request('body');
