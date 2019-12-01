@@ -16,4 +16,8 @@ class Article extends Model
     public function getRouteKeyName() {
         return parent::getRouteKeyName();
     }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }
