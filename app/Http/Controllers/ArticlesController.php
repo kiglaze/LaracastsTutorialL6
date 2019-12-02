@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Tag;
 use Illuminate\Http\Request;
 
 class ArticlesController extends Controller
@@ -38,7 +39,14 @@ class ArticlesController extends Controller
      * Shows all articles.
      */
     public function index() {
-        $articles = Article::latest()->get();
+        $articles = null;
+        if(\request('tag')) {
+            $tagParam = \request('tag');
+            $tag = Tag::where('name', $tagParam)->firstOrFail();
+            $articles = $tag->articles;
+        } else {
+            $articles = Article::latest()->get();
+        }
         return view('articles.index', [
             'articles' => $articles
         ]);
