@@ -56,7 +56,9 @@ class ArticlesController extends Controller
      * Shows a view to create a new resource.
      */
     public function create() {
-        return view('articles.create');
+        return view('articles.create', [
+            'tags' => Tag::all()
+        ]);
     }
 
     /**
@@ -64,7 +66,6 @@ class ArticlesController extends Controller
      */
     public function store() {
         $validatedAttrs = $this->validateForm();
-
 //        $article = new Article();
 //        $article->title = \request('title');
 //        $article->excerpt = \request('excerpt');
@@ -76,7 +77,15 @@ class ArticlesController extends Controller
          * However, will need to set protected $fillable field for Article model class.
          *  This allows us to add "mass assignment".
          */
-        Article::create($validatedAttrs);
+//        Article::create($validatedAttrs);
+
+        $article = new Article(\request(['title', 'excerpt', 'body']));
+        $article->user_id = 1; // temporary TODO make dynamic
+        $article->save();
+
+        if(\request()->has('tags')) {
+            $article->tags()->attach(\request('tags'));
+        }
 
         return redirect(route('articles.index'));
     }
@@ -122,7 +131,8 @@ class ArticlesController extends Controller
         $validatedAttrs = \request()->validate([
             'title' => ['required', 'min:3', 'max:255'],
             'excerpt' => ['required'],
-            'body' => ['required']
+            'body' => ['required'],
+            'tags' => ['exists:tags,id']
         ]);
         return $validatedAttrs;
     }
